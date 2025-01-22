@@ -1,0 +1,65 @@
+﻿@model IEnumerable<FT_TTMS_WebApplication.Models.Job>
+
+@{
+    ViewData["Title"] = "Jobs List";
+}
+
+<h2>Jobs List</h2>
+
+<!-- Search Form -->
+<form method="get" asp-action="Index" class="d-flex justify-content-between">
+    <div class="form-group flex-grow-1">
+        <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="form-control" placeholder="Search by Job Number or Job Name" />
+    </div>
+    <div class="form-group ml-2">
+        <input type="submit" value="Search" class="btn btn-primary ml-2" />
+    </div>
+</form>
+
+<!-- Jobs Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Job Number</th>
+            <th>Job Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var job in Model)
+        {
+            <tr>
+                <td>@job.JobNumber</td>
+                <td>@job.JobName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@job.Id" class="btn btn-primary">Edit</a>
+                    @* <a asp-action="Delete" asp-route-id="@job.Id" class="btn btn-danger">Delete</a> *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Pagination -->
+<div>
+    <ul class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage - 1)" asp-route-searchTerm="@ViewBag.SearchTerm">Previous</a>
+            </li>
+        }
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@i" asp-route-searchTerm="@ViewBag.SearchTerm">@i</a>
+            </li>
+        }
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage + 1)" asp-route-searchTerm="@ViewBag.SearchTerm">Next</a>
+            </li>
+        }
+    </ul>
+</div>

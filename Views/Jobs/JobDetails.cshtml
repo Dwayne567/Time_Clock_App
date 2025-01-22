@@ -1,0 +1,40 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Job Details";
+}
+
+<h2>Job Details</h2>
+
+<form method="get" asp-action="JobDetails" class="d-flex justify-content-between">
+    <div class="form-group flex-grow-1">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Enter Job Number" />
+    </div>
+    <div class="form-group ml-2">
+        <input type="submit" value="Search" class="btn btn-primary ml-2" />
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date</th>
+            <th>Task</th>
+            <th>Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model)
+        {
+            <tr>
+                <td>@entry.FirstName</td>
+                <td>@entry.LastName</td>
+                <td>@entry.Date?.ToString("d")</td>
+                <td>@entry.Duty</td>
+                <td>@entry.Duration</td>
+            </tr>
+        }
+    </tbody>
+</table>

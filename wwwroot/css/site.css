@@ -1,0 +1,123 @@
+/* Set the base font size and ensure the html element takes up the full height of the viewport */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+/* Increase the base font size for larger screens */
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* Add a bottom margin to the body to prevent content from being hidden by fixed elements */
+body {
+    margin-bottom: 60px;
+}
+
+/* Style the week selection dropdown */
+#weekSelect {
+    width: 220px;
+    height: 40px;
+    font-size: smaller;
+}
+
+/* Add vertical borders to table cells */
+.table-bordered-vertical th,
+.table-bordered-vertical td {
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+}
+
+/* Remove the left border from the first cell and the right border from the last cell */
+.table-bordered-vertical th:first-child,
+.table-bordered-vertical td:first-child {
+    border-left: 0;
+}
+
+.table-bordered-vertical th:last-child,
+.table-bordered-vertical td:last-child {
+    border-right: 0;
+}
+
+/* Style the container for the Excel upload section */
+.excel-container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Add a bottom margin to groups of Excel controls */
+.excel-group {
+    margin-bottom: 20px;
+}
+
+/* Style individual Excel controls */
+.excel-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+/* Style the Excel upload button */
+.excel-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Change the background color of the Excel upload button on hover */
+.excel-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Style the total hours text */
+.totalHours {
+    font-size: larger;
+    font-weight: bold;
+    color: darkred;
+}
+
+/* Add a bottom margin to form groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Style the duration text for different types of durations */
+.dayDuration,
+.lunchDuration,
+.workDuration {
+    color: cornflowerblue;
+    font-weight: 600;
+}
+
+.taskDuration {
+    color: green;
+    font-weight: 600;
+}
+
+.leaveDuration {
+    color: gray;
+    font-weight: 600;
+}
+
+/* Style the display elements for different durations */
+#dayDurationDisplay,
+#lunchDurationDisplay,
+#workDurationDisplay {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
