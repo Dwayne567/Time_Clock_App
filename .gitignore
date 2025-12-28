@@ -1,0 +1,37 @@
+# General
+.DS_Store
+Thumbs.db
+*.swp
+
+# Visual Studio / .NET
+.vs/
+.vscode/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+packages/
+TestResults/
+*.generated.cs
+
+# ASP.NET Core
+appsettings.Development.json
+appsettings.Local.json
+
+# Frontend / Node / Angular
+node_modules/
+dist/
+.angular/
+coverage/
+npm-debug.log
+yarn-error.log
+.sass-cache/
+
+# Testing
+test-results/
+playwright-report/
+blob-report/
+cypress/videos/
+cypress/screenshots/

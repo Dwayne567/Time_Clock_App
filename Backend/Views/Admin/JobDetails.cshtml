@@ -1,0 +1,61 @@
+@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Job Details";
+    var totalDuration = Model.Sum(entry => (double)entry.Duration);
+}
+
+<h2>Job Details</h2>
+
+<!-- Search Form -->
+<form method="get" asp-action="JobDetails" class="d-flex justify-content-between">
+    <div class="form-group flex-grow-1">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Enter Job Number" value="@ViewContext.HttpContext.Request.Query["searchTerm"]" />
+    </div>
+    <div class="form-group ml-2">
+        <input type="submit" value="Search" class="btn btn-primary ml-2" />
+    </div>
+</form>
+
+<!-- Export to Excel Form -->
+<form method="get" asp-action="ExportJobDetailsToExcel" class="d-flex justify-content-between mt-2">
+    <input type="hidden" name="searchTerm" value="@ViewContext.HttpContext.Request.Query["searchTerm"]" />
+    <div class="form-group ml-2">
+        <input type="submit" value="Export to Excel" class="btn btn-success ml-2" />
+    </div>
+</form>
+
+<!-- Job Details Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Job Number</th>
+            <th>Job Name</th>
+            <th>Date</th>
+            <th>Task</th>
+            <th>Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model)
+        {
+            <tr>
+                <td>@entry.FirstName</td>
+                <td>@entry.LastName</td>
+                <td>@entry.JobNumber</td>
+                <td>@entry.JobName</td>
+                <td>@entry.Date?.ToString("d")</td>
+                <td>@entry.Task</td>
+                <td>@entry.Duration</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6" class="text-right"><strong>Total Duration:</strong></td>
+            <td><strong>@totalDuration</strong></td>
+        </tr>
+    </tfoot>
+</table>

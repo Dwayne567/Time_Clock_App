@@ -1,0 +1,99 @@
+@using Timeclock_WebApplication.ViewModels
+@model AdminViewModel
+
+<div class="container-fluid">
+    <h1 class="display-4 text-center mt-3 mb-5">Admin Dashboard</h1>
+
+    <div class="excel-container">
+        <h4 class="text-center mt-1 mb-3">Export Time Sheet</h4>
+        
+        <!-- Group Selection Dropdown -->
+        <div class="excel-group">
+            <label for="group">Select a group:</label>
+            <select id="group" class="form-control">
+                <option value="Group1">Group1</option>
+            </select>
+        </div>
+
+        <!-- Date Range Selection Inputs -->
+        <div class="excel-group">
+            <label for="dateFrom">From:</label>
+            <input type="date" id="dateFrom" class="excel-control">
+
+            <label for="dateTo">To:</label>
+            <input type="date" id="dateTo" class="excel-control">
+        </div>
+
+        <!-- Export Button -->
+        <button id="exportButton" class="excel-btn">Export All Selected</button>
+    </div>
+
+    <!-- View Jobs Button -->
+    <button id="viewJobsButton" class="btn btn-info mt-3 mb-3" onclick="window.location.href='/Jobs/Index'">View Jobs</button>
+    
+    <!-- Job Details Button -->
+    <a asp-action="JobDetails" class="btn btn-info">Job Details</a>
+
+    @section Scripts {
+        <script>
+            // Script to handle the click event of the export button
+            document.getElementById('exportButton').addEventListener('click', function () {
+                var group = document.getElementById('group').value;
+                var dateFrom = document.getElementById('dateFrom').value;
+                var dateTo = document.getElementById('dateTo').value;
+
+                // Call the export function
+                window.location.href = '/Admin/ExportToExcel?group=' + encodeURIComponent(group) + '&startDate=' + encodeURIComponent(dateFrom) + '&endDate=' + encodeURIComponent(dateTo);
+            });
+        </script>
+    }
+
+    @* Sort users with specific first names at the top *@
+    @{
+        var sortedUsers = Model.Users
+            .OrderByDescending(user => user.FirstName == "AdminFirstName1" || user.FirstName == "AdminFirstName2")
+            .ThenBy(user => user.FirstName)
+            .ToList();
+    }
+
+    <!-- User Data Table -->
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light d-none">
+                <div class="collapse navbar-collapse d-flex justify-content-end" id="bs-example-navbar-collapse-1">
+                    <form class="form-inline d-flex">
+                        <input class="form-control mr-sm-2" type="text" />
+                        <button class="btn btn-primary my-2 my-sm-0 m-2" type="submit">
+                            Search
+                        </button>
+                    </form>
+                </div>
+            </nav>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Employee First Name</th>
+                        <th>Employee Last Name</th>
+                        <th>Group</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- Generate a table row for each user in the sorted model -->
+                    @foreach (var user in sortedUsers)
+                    {
+                        <tr>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.Group</td>
+                            <td>
+                                <a class="btn btn-primary" href="@Url.Action("Index", "Dashboard", new { userId = user.Id })">View</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

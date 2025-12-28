@@ -1,0 +1,54 @@
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h1>Create Account</h1>
+            <p>Sign up to get started</p>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" formControlName="firstName" placeholder="First Name">
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" formControlName="lastName" placeholder="Last Name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" formControlName="email" placeholder="Email Address">
+            </div>
+
+            <div class="form-group">
+                <label for="employeeNumber">Employee Number</label>
+                <input type="number" id="employeeNumber" formControlName="employeeNumber" placeholder="Employee Number">
+            </div>
+
+            <div class="form-group">
+                <label for="group">Group</label>
+                <input type="text" id="group" formControlName="group" placeholder="Group (e.g., Group1)">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" formControlName="password" placeholder="Password (min 6 chars)">
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password">
+            </div>
+
+            <div *ngIf="error" class="login-error">{{ error }}</div>
+            <div *ngIf="success" class="login-success" style="color: green; margin-bottom: 10px;">{{ success }}</div>
+
+            <button type="submit" [disabled]="registerForm.invalid">Register</button>
+
+            <div class="login-footer">
+                <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+            </div>
+        </form>
+    </div>
+</div>

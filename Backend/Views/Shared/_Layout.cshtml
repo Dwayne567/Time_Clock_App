@@ -1,0 +1,135 @@
+?@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@{
+    // Get the current user
+    var currentUser = await UserManager.GetUserAsync(User);
+    
+    // Check if the current user is an admin
+    var isAdmin = currentUser != null && await UserManager.IsInRoleAsync(currentUser, "admin");
+    
+    // Check if the current user is a regular user
+    var isUser = currentUser != null && await UserManager.IsInRoleAsync(currentUser, "user");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Timeclock_WebApplication</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Timeclock_WebApplication.styles.css" asp-append-version="true" />
+    <!-- J Query -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="navbar-container">
+        <div class="bg-light navbar-light" data-sticky="top">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="icon-menu h4"></i>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        @if (isAdmin)
+                        {
+                            <header class="flex-grow-1">
+                                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                                    <div class="container-fluid">
+                                        <div class="navbar-collapse collapse d-sm-inline-flex">
+                                            <ul class="navbar-nav flex-grow-1 justify-content-between">
+                                                <li class="nav-item">
+                                                    <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Index">
+                                                        <h4 class="text-center">Time Clock</h4>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">
+                                                        <span class="h6 mb-0">Logout</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </header>
+                        }
+                        else if (isUser)
+                        {
+                            <header class="flex-grow-1">
+                                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                                    <div class="container-fluid">
+                                        <div class="navbar-collapse collapse d-sm-inline-flex">
+                                            <ul class="navbar-nav flex-grow-1 justify-content-between">
+                                                <li class="nav-item">
+                                                    <a class="dropdown-item" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                                                        <h4 class="text-center">Time Clock</h4>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">
+                                                        <span class="h6 mb-0">Logout</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </header>
+                        }
+                        else
+                        {
+                            <header class="flex-grow-1">
+                                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                                    <div class="container-fluid">
+                                        <div class="navbar-collapse collapse d-sm-inline-flex">
+                                            <ul class="navbar-nav flex-grow-1 justify-content-between">
+                                                <li class="nav-item">
+                                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Login">
+                                                        <h4 class="text-center">Time Clock</h4>
+                                                    </a>
+                                                </li>
+                                                <div class="d-flex">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link text-dark" style="font-weight: 600;" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link text-dark" style="font-weight: 600;" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                                    </li>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </header>
+                        }
+
+                    </div>
+                    <!--end nav collapse-->
+                </nav>
+            </div>
+            <!--end of container-->
+        </div>
+    </div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Timeclock_WebApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
