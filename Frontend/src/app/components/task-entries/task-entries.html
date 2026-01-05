@@ -1,0 +1,79 @@
+<div class="entries-section">
+    <div class="section-header">
+        <h3>Task Entries</h3>
+        <button (click)="toggleAddForm()" class="add-btn">
+            {{ showAddForm ? 'Cancel' : '+ Add Task Entry' }}
+        </button>
+    </div>
+
+    <!-- Add Task Entry Form -->
+    @if (showAddForm) {
+        <div class="add-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Job</label>
+                    <select [(ngModel)]="newTaskEntry.jobId">
+                        <option [ngValue]="null">-- Select Job --</option>
+                        @for (job of jobs; track job.id) {
+                            <option [ngValue]="job.id">
+                                {{ job.jobNumber }} - {{ job.jobName }}
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Task</label>
+                    <select [(ngModel)]="newTaskEntry.taskName">
+                        <option value="">-- Select Task --</option>
+                        @for (task of tasks; track task.id) {
+                            <option [ngValue]="task.taskDescription">
+                                {{ task.taskDescription }}
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Duration (hours)</label>
+                    <input type="number" [(ngModel)]="newTaskEntry.duration" step="0.25" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Comment</label>
+                    <input type="text" [(ngModel)]="newTaskEntry.comment" placeholder="Optional comment">
+                </div>
+                <button (click)="addTaskEntry()" class="save-btn">Save</button>
+            </div>
+        </div>
+    }
+
+    <table class="entries-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Job</th>
+                <th>Task</th>
+                <th>Duration</th>
+                <th>Comments</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (entry of taskEntries; track entry.id) {
+                <tr>
+                    <td>{{ entry.date | date:'shortDate' }}</td>
+                    <td>{{ entry.job?.jobName }}</td>
+                    <td>{{ entry.taskName }}</td>
+                    <td>{{ entry.duration | number:'1.2-2' }}</td>
+                    <td>{{ entry.comment }}</td>
+                    <td>
+                        <button class="icon-btn delete-btn" title="Delete" aria-label="Delete"
+                            (click)="deleteTaskEntry(entry.id)">&times;</button>
+                    </td>
+                </tr>
+            } @empty {
+                <tr>
+                    <td colspan="6" class="no-data">No task entries for this week.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

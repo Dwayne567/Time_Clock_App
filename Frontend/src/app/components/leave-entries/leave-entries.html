@@ -1,0 +1,59 @@
+<div class="entries-section">
+    <div class="section-header">
+        <h3>Leave Entries</h3>
+        <button (click)="toggleAddForm()" class="add-btn">
+            {{ showAddForm ? 'Cancel' : '+ Add Leave Entry' }}
+        </button>
+    </div>
+
+    <!-- Add Leave Entry Form -->
+    @if (showAddForm) {
+        <div class="add-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Leave Type</label>
+                    <select [(ngModel)]="newLeaveEntry.leaveType">
+                        @for (type of leaveTypes; track type) {
+                            <option [value]="type">{{ type === 'UPTO' ? 'Unpaid Time Off' : type }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Duration (hours)</label>
+                    <input type="number" [(ngModel)]="newLeaveEntry.leaveDuration" step="0.5" min="0" max="24">
+                </div>
+                <button (click)="addLeaveEntry()" class="save-btn">Save</button>
+            </div>
+        </div>
+    }
+
+    <table class="entries-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (entry of leaveEntries; track entry.id) {
+                <tr>
+                    <td>{{ entry.date | date:'shortDate' }}</td>
+                    <td>{{ entry.leaveType }}</td>
+                    <td>{{ entry.leaveDuration }}</td>
+                    <td>{{ entry.status }}</td>
+                    <td>
+                        <button class="icon-btn delete-btn" title="Delete" aria-label="Delete"
+                            (click)="deleteLeaveEntry(entry.id)">&times;</button>
+                    </td>
+                </tr>
+            } @empty {
+                <tr>
+                    <td colspan="5" class="no-data">No leave entries for this week.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

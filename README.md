@@ -20,10 +20,54 @@ Timeclock is a comprehensive web application designed for tracking employee time
 ## Project Structure
 ```
 Time_Clock_App/
-├── Backend/         # ASP.NET Core Web API
-├── Frontend/        # Angular SPA
-├── docs/            # Documentation and screenshots
+├── Backend/              # ASP.NET Core Web API
+├── Backend.Tests/        # xUnit backend tests
+├── Frontend/             # Angular SPA
+├── e2e/                  # Playwright E2E tests
+├── docs/                 # Documentation and screenshots
 └── README.md
+```
+
+## Testing
+
+### Test Summary
+| Layer | Framework | Tests | Coverage |
+|-------|-----------|-------|----------|
+| Backend | xUnit + Moq | 189 | 83% line, 52% branch |
+| Frontend | Jasmine/Karma | 159 | 97% statement |
+| E2E | Playwright | 22 | - |
+
+### Running Tests
+
+**Backend Tests**
+```bash
+cd Backend.Tests
+dotnet test
+```
+
+**Backend Tests with Coverage**
+```bash
+cd Backend.Tests
+dotnet test --collect:"XPlat Code Coverage" --results-directory ./coverage
+~/.dotnet/tools/reportgenerator "-reports:./coverage/*/coverage.cobertura.xml" "-targetdir:./coverage/report" -reporttypes:Html
+```
+
+**Frontend Tests**
+```bash
+cd Frontend
+npm test
+```
+
+**Frontend Tests with Coverage**
+```bash
+cd Frontend
+npm run test:coverage
+```
+
+**E2E Tests**
+```bash
+cd e2e
+npx playwright test
 ```
 
 ## Dashboards

@@ -1,0 +1,143 @@
+.entries-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.status-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.status-card h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.status-active {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.status-inactive {
+  color: #6c757d;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.status-date {
+  color: #555;
+  margin: 0.5rem 0;
+}
+
+.muted {
+  color: #999;
+}
+
+.clock-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.clock-in-btn {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.clock-in-btn:hover:not(:disabled) {
+  background: #1e7e34;
+}
+
+.clock-in-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.clock-out-btn {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.clock-out-btn:hover:not(:disabled) {
+  background: #a71d2a;
+}
+
+.clock-out-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.entries-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.entries-table th,
+.entries-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.entries-table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #555;
+}
+
+.entries-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.no-data {
+  text-align: center;
+  color: #999;
+  padding: 2rem !important;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.delete-btn {
+  color: #dc3545;
+}
+
+.delete-btn:hover {
+  color: #a71d2a;
+}
